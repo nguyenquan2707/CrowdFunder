@@ -35,9 +35,11 @@ contract CrowdFunder {
         
         emit logContribute(msg.value, msg.sender, totalRaise);
         
-        
+        if(totalRaise >= minimalToRaise) {
+            state = State.Successful;
+            owner.transfer(totalRaise); // transfer total fund to who he/she deploy this contract
+        } else if (block.timestamp > expiredDay) {
+            state = State.ExpiredRefund;
+        }
     }
-    
-    
-    
 }
