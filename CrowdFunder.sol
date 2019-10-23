@@ -6,6 +6,8 @@ contract CrowdFunder {
     uint256 public minimalToRaise;
     uint256 public expiredDay;
     
+    event logContribute(uint256 amount, address contributor, uint256 totalRaise);
+    
     uint256 totalRaise;
     
     State public state = State.FunRaising; 
@@ -30,5 +32,12 @@ contract CrowdFunder {
         require(state == State.FunRaising);
         contributions.push( Contribution({ amount: msg.value, contributor: msg.sender }));
         totalRaise += msg.value;
+        
+        emit logContribute(msg.value, msg.sender, totalRaise);
+        
+        
     }
+    
+    
+    
 }
