@@ -11,4 +11,12 @@ contract CrowdFunder {
         minimalToRaise = _minimalToRaise;
         expiredDay = block.timestamp + (_timeInHoursForRaising * 1 hours);
     }
+    
+    // Contribution struct
+    struct Contribution {
+        uint256 amount;
+        address payable contributor;
+    }
+    
+    enum State { FunRaising, ExpiredRefund, Successful }
 }
