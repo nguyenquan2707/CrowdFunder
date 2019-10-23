@@ -6,6 +6,12 @@ contract CrowdFunder {
     uint256 public minimalToRaise;
     uint256 public expiredDay;
     
+    uint256 totalRaise;
+    
+    State public state = State.FunRaising; 
+    
+    Contribution[] contributions;
+    
     constructor(address payable _owner, uint256 _minimalToRaise, uint256 _timeInHoursForRaising) public{
         owner = _owner;
         minimalToRaise = _minimalToRaise;
@@ -19,4 +25,10 @@ contract CrowdFunder {
     }
     
     enum State { FunRaising, ExpiredRefund, Successful }
+    
+    function contrubite() public payable returns(uint256) {
+        require(state == State.FunRaising);
+        contributions.push( Contribution({ amount: msg.value, contributor: msg.sender }));
+        totalRaise += msg.value;
+    }
 }
