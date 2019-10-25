@@ -46,4 +46,14 @@ contract CrowdFunder {
         competeAt = now;
         return contributions.length - 1;
     }
+    
+    //refund to contributor when time is deadline
+    function refund(uint256 _id) public returns(bool) {
+        require(state == State.ExpiredRefund);
+        require(contributions.length > _id && _id >= 0 && contributions[_id].amount != 0);
+        uint256 amountToRefund = contributions[_id].amount;
+        contributions[_id].amount = 0;
+        contributions[_id].contributor.transfer(amountToRefund); //send back to contributor
+        
+    }
 }
