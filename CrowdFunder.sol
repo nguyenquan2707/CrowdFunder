@@ -6,6 +6,8 @@ contract CrowdFunder {
     uint256 public minimalToRaise;
     uint256 public expiredDay;
     
+    uint256 competeAt;
+    
     event logContribute(uint256 amount, address contributor, uint256 totalRaise);
     
     uint256 totalRaise;
@@ -41,5 +43,7 @@ contract CrowdFunder {
         } else if (block.timestamp > expiredDay) {
             state = State.ExpiredRefund;
         }
+        competeAt = now;
+        return contributions.length - 1;
     }
 }
