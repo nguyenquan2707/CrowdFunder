@@ -9,6 +9,7 @@ contract CrowdFunder {
     uint256 competeAt;
     
     event logContribute(uint256 amount, address contributor, uint256 totalRaise);
+    event logRefund(uint256 amount);
     
     uint256 totalRaise;
     
@@ -54,6 +55,9 @@ contract CrowdFunder {
         uint256 amountToRefund = contributions[_id].amount;
         contributions[_id].amount = 0;
         contributions[_id].contributor.transfer(amountToRefund); //send back to contributor
+        
+        emit logRefund(amountToRefund);
+        return true;
         
     }
 }
