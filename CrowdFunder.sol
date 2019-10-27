@@ -69,6 +69,6 @@ contract CrowdFunder {
     }
     
     function getNumberOfContributor() public view returns(uint256) {
-        return contributions.length;
+        return contributions.length - 1;
     }
 }
