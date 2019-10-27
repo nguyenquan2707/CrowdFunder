@@ -58,6 +58,13 @@ contract CrowdFunder {
         
         emit logRefund(amountToRefund);
         return true;
-        
+    }
+    
+    //Wait 24 week after final contract state before allowing contract destruction
+    function removeContract() public {
+        require(msg.sender == owner);
+        require((state == State.ExpiredRefund || state == State.Successful) && competeAt + 24 weeks < now);
+        // creator get all money that hasn't be claimed
+        selfdestruct(msg.sender);
     }
 }
