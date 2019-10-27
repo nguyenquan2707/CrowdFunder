@@ -67,4 +67,8 @@ contract CrowdFunder {
         // creator get all money that hasn't be claimed
         selfdestruct(msg.sender);
     }
+    
+    function getNumberOfContributor() public view returns(uint256) {
+        return contributions.length;
+    }
 }
